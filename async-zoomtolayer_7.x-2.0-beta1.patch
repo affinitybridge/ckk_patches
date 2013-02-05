@@ -1,0 +1,13 @@
+diff --git a/plugins/behaviors/openlayers_behavior_zoomtolayer.js b/plugins/behaviors/openlayers_behavior_zoomtolayer.js
+index 574f5a9..3d3584e 100644
+--- a/plugins/behaviors/openlayers_behavior_zoomtolayer.js
++++ b/plugins/behaviors/openlayers_behavior_zoomtolayer.js
+@@ -16,7 +16,7 @@ Drupal.openlayers.addBehavior('openlayers_behavior_zoomtolayer', function (data,
+       // For KML layers, we need to wait until layer is loaded.  Ideally
+       // we could check for any layer that is loading from an external
+       // source, but for now, just check KML
+-      if (layers[i].layer_handler == 'kml') {
++      if (layers[i].url !== undefined) {
+         layers[i].events.register('loadend', layers[i], function() {
+           layerextent = layers[i].getDataExtent();
+           map.zoomToExtent(layerextent);
