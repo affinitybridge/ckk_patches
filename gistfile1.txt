@@ -1,0 +1,17 @@
+diff --git a/modules/image/image.field.inc b/modules/image/image.field.inc
+index 1be1583..cb0b1bb 100644
+--- a/modules/image/image.field.inc
++++ b/modules/image/image.field.inc
+@@ -211,6 +211,12 @@ function image_field_prepare_view($entity_type, $entities, $field, $instances, $
+       elseif (!empty($field['settings']['default_image'])) {
+         $fid = $field['settings']['default_image'];
+       }
++      // Core patch
++      // Add a hook here for other modules to supply a default image fid
++      else {
++        $fid = module_invoke_all('cis_base_get_default_image', $field, $instances);
++        $fid = array_shift($fid);
++      }
+
+       // Add the default image if one is found.
+       if ($fid && ($file = file_load($fid))) {

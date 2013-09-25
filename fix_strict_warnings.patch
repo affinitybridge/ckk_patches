@@ -1,0 +1,403 @@
+diff --git a/modules/openlayers_views/plugins/layer_types/openlayers_views_vector.inc b/modules/openlayers_views/plugins/layer_types/openlayers_views_vector.inc
+index 0505312..855e024 100644
+--- a/modules/openlayers_views/plugins/layer_types/openlayers_views_vector.inc
++++ b/modules/openlayers_views/plugins/layer_types/openlayers_views_vector.inc
+@@ -33,7 +33,7 @@ class openlayers_layer_type_openlayers_views_vector
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+     );
+   }
+diff --git a/plugins/behaviors/openlayers_behavior_attribution.inc b/plugins/behaviors/openlayers_behavior_attribution.inc
+index 61ff359..bcc41e2 100644
+--- a/plugins/behaviors/openlayers_behavior_attribution.inc
++++ b/plugins/behaviors/openlayers_behavior_attribution.inc
+@@ -35,7 +35,7 @@ class openlayers_behavior_attribution extends openlayers_behavior {
+     return array('OpenLayers.Control.Attribution');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+       'seperator' => array(
+         '#type' => 'textfield',
+diff --git a/plugins/behaviors/openlayers_behavior_boxselect.inc b/plugins/behaviors/openlayers_behavior_boxselect.inc
+index e0ab604..4d298db 100644
+--- a/plugins/behaviors/openlayers_behavior_boxselect.inc
++++ b/plugins/behaviors/openlayers_behavior_boxselect.inc
+@@ -40,7 +40,7 @@ class openlayers_behavior_boxselect extends openlayers_behavior {
+     );
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+     );
+   }
+diff --git a/plugins/behaviors/openlayers_behavior_cluster.inc b/plugins/behaviors/openlayers_behavior_cluster.inc
+index f8b7dc6..aaadc69 100644
+--- a/plugins/behaviors/openlayers_behavior_cluster.inc
++++ b/plugins/behaviors/openlayers_behavior_cluster.inc
+@@ -43,7 +43,7 @@ class openlayers_behavior_cluster extends openlayers_behavior {
+   /**
+    * Provide form for configurations per map.
+    */
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     // Only prompt for vector layers
+     $vector_layers = array();
+     foreach ($this->map['layers'] as $id => $name) {
+diff --git a/plugins/behaviors/openlayers_behavior_dragpan.inc b/plugins/behaviors/openlayers_behavior_dragpan.inc
+index 6cfdccd..89b2f71 100644
+--- a/plugins/behaviors/openlayers_behavior_dragpan.inc
++++ b/plugins/behaviors/openlayers_behavior_dragpan.inc
+@@ -36,7 +36,7 @@ class openlayers_behavior_dragpan extends openlayers_behavior {
+     return array('OpenLayers.Control.DragPan');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     $form = array();
+     
+     // This options seem to be buggy.  Shoudl look into more.
+diff --git a/plugins/behaviors/openlayers_behavior_drawfeatures.inc b/plugins/behaviors/openlayers_behavior_drawfeatures.inc
+index e650e24..8ce41e3 100644
+--- a/plugins/behaviors/openlayers_behavior_drawfeatures.inc
++++ b/plugins/behaviors/openlayers_behavior_drawfeatures.inc
+@@ -33,7 +33,7 @@ class openlayers_behavior_drawfeatures extends openlayers_behavior {
+     );
+   }
+ 
+-  function options_form($defaults) {  
++  function options_form($defaults = array()) {  
+     $features = array(
+       'point' => t('Point'),
+       'path' => t('Path'),
+diff --git a/plugins/behaviors/openlayers_behavior_fullscreen.inc b/plugins/behaviors/openlayers_behavior_fullscreen.inc
+index c9fdb5e..7211009 100644
+--- a/plugins/behaviors/openlayers_behavior_fullscreen.inc
++++ b/plugins/behaviors/openlayers_behavior_fullscreen.inc
+@@ -34,7 +34,7 @@ class openlayers_behavior_fullscreen extends openlayers_behavior {
+   /**
+    * Provide form for configurations per map.
+    */
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+       'activated' => array(
+         '#title' => t('Initially activated'),
+diff --git a/plugins/behaviors/openlayers_behavior_geolocate.inc b/plugins/behaviors/openlayers_behavior_geolocate.inc
+index 48dd4b3..e119438 100644
+--- a/plugins/behaviors/openlayers_behavior_geolocate.inc
++++ b/plugins/behaviors/openlayers_behavior_geolocate.inc
+@@ -38,7 +38,7 @@ class openlayers_behavior_geolocate extends openlayers_behavior {
+     );
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     $intials = $this->options_init();
+   
+     return array(
+diff --git a/plugins/behaviors/openlayers_behavior_layerswitcher.inc b/plugins/behaviors/openlayers_behavior_layerswitcher.inc
+index fb00f7d..7767740 100644
+--- a/plugins/behaviors/openlayers_behavior_layerswitcher.inc
++++ b/plugins/behaviors/openlayers_behavior_layerswitcher.inc
+@@ -38,7 +38,7 @@ class openlayers_behavior_layerswitcher extends openlayers_behavior {
+     return array('OpenLayers.Control.LayerSwitcher');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+       'ascending' => array(
+         '#type' => 'checkbox',
+diff --git a/plugins/behaviors/openlayers_behavior_mouseposition.inc b/plugins/behaviors/openlayers_behavior_mouseposition.inc
+index c041d44..3d085d0 100644
+--- a/plugins/behaviors/openlayers_behavior_mouseposition.inc
++++ b/plugins/behaviors/openlayers_behavior_mouseposition.inc
+@@ -39,7 +39,7 @@ class openlayers_behavior_mouseposition extends openlayers_behavior {
+     return array('OpenLayers.Control.MousePosition');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+       'prefix' => array(
+         '#title' => t('Prefix'),
+diff --git a/plugins/behaviors/openlayers_behavior_navigation.inc b/plugins/behaviors/openlayers_behavior_navigation.inc
+index 4661635..1c53d27 100644
+--- a/plugins/behaviors/openlayers_behavior_navigation.inc
++++ b/plugins/behaviors/openlayers_behavior_navigation.inc
+@@ -38,7 +38,7 @@ class openlayers_behavior_navigation extends openlayers_behavior {
+     return array('OpenLayers.Control.Navigation');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+       'zoomWheelEnabled' => array(
+         '#type' => 'checkbox',
+diff --git a/plugins/behaviors/openlayers_behavior_panzoom.inc b/plugins/behaviors/openlayers_behavior_panzoom.inc
+index 174f331..2c5bbbd 100644
+--- a/plugins/behaviors/openlayers_behavior_panzoom.inc
++++ b/plugins/behaviors/openlayers_behavior_panzoom.inc
+@@ -31,7 +31,7 @@ class openlayers_behavior_panzoom extends openlayers_behavior {
+     );
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+     );
+   }
+diff --git a/plugins/behaviors/openlayers_behavior_panzoombar.inc b/plugins/behaviors/openlayers_behavior_panzoombar.inc
+index c00f711..6fc96df 100644
+--- a/plugins/behaviors/openlayers_behavior_panzoombar.inc
++++ b/plugins/behaviors/openlayers_behavior_panzoombar.inc
+@@ -36,7 +36,7 @@ class openlayers_behavior_panzoombar extends openlayers_behavior {
+     return array('OpenLayers.Control.PanZoomBar');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+       'zoomWorldIcon' => array(
+         '#type' => 'checkbox',
+diff --git a/plugins/behaviors/openlayers_behavior_permalink.inc b/plugins/behaviors/openlayers_behavior_permalink.inc
+index 7416f77..8043f2a 100644
+--- a/plugins/behaviors/openlayers_behavior_permalink.inc
++++ b/plugins/behaviors/openlayers_behavior_permalink.inc
+@@ -35,7 +35,7 @@ class openlayers_behavior_permalink extends openlayers_behavior {
+     return array('OpenLayers.Control.Permalink');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+       'anchor' => array(
+         '#type' => 'checkbox',
+diff --git a/plugins/behaviors/openlayers_behavior_popup.inc b/plugins/behaviors/openlayers_behavior_popup.inc
+index 1a6a2f7..0610ec2 100644
+--- a/plugins/behaviors/openlayers_behavior_popup.inc
++++ b/plugins/behaviors/openlayers_behavior_popup.inc
+@@ -34,7 +34,7 @@ class openlayers_behavior_popup extends openlayers_behavior {
+   /**
+    * Form defintion for per map customizations.
+    */
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     // Only prompt for vector layers
+     $vector_layers = array();
+     foreach ($this->map['layers'] as $id => $name) {
+diff --git a/plugins/behaviors/openlayers_behavior_scaleline.inc b/plugins/behaviors/openlayers_behavior_scaleline.inc
+index d0ef913..49e9c07 100644
+--- a/plugins/behaviors/openlayers_behavior_scaleline.inc
++++ b/plugins/behaviors/openlayers_behavior_scaleline.inc
+@@ -35,7 +35,7 @@ class openlayers_behavior_scaleline extends openlayers_behavior {
+     return array('OpenLayers.Control.ScaleLine');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array();
+   }
+ 
+diff --git a/plugins/behaviors/openlayers_behavior_tooltip.inc b/plugins/behaviors/openlayers_behavior_tooltip.inc
+index e06c635..ad70d1d 100644
+--- a/plugins/behaviors/openlayers_behavior_tooltip.inc
++++ b/plugins/behaviors/openlayers_behavior_tooltip.inc
+@@ -35,7 +35,7 @@ class openlayers_behavior_tooltip extends openlayers_behavior {
+   /**
+    * Form defintion for per map customizations.
+    */
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     // Only prompt for vector layers
+     $vector_layers = array();
+     foreach ($this->map['layers'] as $id => $name) {
+diff --git a/plugins/behaviors/openlayers_behavior_zoombox.inc b/plugins/behaviors/openlayers_behavior_zoombox.inc
+index ed51944..440bb73 100644
+--- a/plugins/behaviors/openlayers_behavior_zoombox.inc
++++ b/plugins/behaviors/openlayers_behavior_zoombox.inc
+@@ -35,7 +35,7 @@ class openlayers_behavior_zoombox extends openlayers_behavior {
+     return array('OpenLayers.Control.ZoomBox');
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array();
+   }
+ 
+diff --git a/plugins/behaviors/openlayers_behavior_zoomtolayer.inc b/plugins/behaviors/openlayers_behavior_zoomtolayer.inc
+index 339fcca..7a252c8 100644
+--- a/plugins/behaviors/openlayers_behavior_zoomtolayer.inc
++++ b/plugins/behaviors/openlayers_behavior_zoomtolayer.inc
+@@ -31,7 +31,7 @@ class openlayers_behavior_zoomtolayer extends openlayers_behavior {
+     );
+   }
+ 
+-  function options_form($defaults) {
++  function options_form($defaults = array()) {
+     return array(
+       'zoomtolayer' => array(
+         '#type' => 'select',
+diff --git a/plugins/layer_types/openlayers_layer_type_cloudmade.inc b/plugins/layer_types/openlayers_layer_type_cloudmade.inc
+index e69c689..e313009 100644
+--- a/plugins/layer_types/openlayers_layer_type_cloudmade.inc
++++ b/plugins/layer_types/openlayers_layer_type_cloudmade.inc
+@@ -49,7 +49,7 @@ class openlayers_layer_type_cloudmade extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     $warning = (!variable_get('openlayers_layers_cloudmade_js', FALSE) ||
+       !variable_get('openlayers_layers_cloudmade_api', FALSE)) ?
+         array(
+diff --git a/plugins/layer_types/openlayers_layer_type_geojson.inc b/plugins/layer_types/openlayers_layer_type_geojson.inc
+index bdd348d..8bf33ee 100644
+--- a/plugins/layer_types/openlayers_layer_type_geojson.inc
++++ b/plugins/layer_types/openlayers_layer_type_geojson.inc
+@@ -49,7 +49,7 @@ class openlayers_layer_type_geojson extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       'url' => array(
+         '#type' => 'textfield',
+diff --git a/plugins/layer_types/openlayers_layer_type_google.inc b/plugins/layer_types/openlayers_layer_type_google.inc
+index 264b53d..f724a47 100644
+--- a/plugins/layer_types/openlayers_layer_type_google.inc
++++ b/plugins/layer_types/openlayers_layer_type_google.inc
+@@ -47,7 +47,7 @@ class openlayers_layer_type_google extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     $google_layer_types = array(
+       'hybrid' => 'Hybrid',
+       'normal' => 'Normal',
+diff --git a/plugins/layer_types/openlayers_layer_type_kml.inc b/plugins/layer_types/openlayers_layer_type_kml.inc
+index ef1876b..a185920 100644
+--- a/plugins/layer_types/openlayers_layer_type_kml.inc
++++ b/plugins/layer_types/openlayers_layer_type_kml.inc
+@@ -52,7 +52,7 @@ class openlayers_layer_type_kml extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       'url' => array(
+         '#type' => 'textfield',
+diff --git a/plugins/layer_types/openlayers_layer_type_maptiler.inc b/plugins/layer_types/openlayers_layer_type_maptiler.inc
+index ebac939..60aaa32 100644
+--- a/plugins/layer_types/openlayers_layer_type_maptiler.inc
++++ b/plugins/layer_types/openlayers_layer_type_maptiler.inc
+@@ -51,7 +51,7 @@ class openlayers_layer_type_maptiler extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       'base_url' => array(
+         '#type' => 'textfield',
+diff --git a/plugins/layer_types/openlayers_layer_type_osm.inc b/plugins/layer_types/openlayers_layer_type_osm.inc
+index d612167..1f56a23 100644
+--- a/plugins/layer_types/openlayers_layer_type_osm.inc
++++ b/plugins/layer_types/openlayers_layer_type_osm.inc
+@@ -50,7 +50,7 @@ class openlayers_layer_type_osm extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       'base_url' => array(
+         '#type' => 'textfield',
+diff --git a/plugins/layer_types/openlayers_layer_type_raw.inc b/plugins/layer_types/openlayers_layer_type_raw.inc
+index 11b8d01..a4e2d67 100644
+--- a/plugins/layer_types/openlayers_layer_type_raw.inc
++++ b/plugins/layer_types/openlayers_layer_type_raw.inc
+@@ -39,7 +39,7 @@ class openlayers_layer_type_raw extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       array(
+         '#value' => t('Raw layers should not be added
+diff --git a/plugins/layer_types/openlayers_layer_type_tms.inc b/plugins/layer_types/openlayers_layer_type_tms.inc
+index f5e710e..c046247 100644
+--- a/plugins/layer_types/openlayers_layer_type_tms.inc
++++ b/plugins/layer_types/openlayers_layer_type_tms.inc
+@@ -51,7 +51,7 @@ class openlayers_layer_type_tms extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       'base_url' => array(
+         '#type' => 'textfield',
+diff --git a/plugins/layer_types/openlayers_layer_type_virtualearth.inc b/plugins/layer_types/openlayers_layer_type_virtualearth.inc
+index 0cabfd1..a71db8e 100644
+--- a/plugins/layer_types/openlayers_layer_type_virtualearth.inc
++++ b/plugins/layer_types/openlayers_layer_type_virtualearth.inc
+@@ -45,7 +45,7 @@ class openlayers_layer_type_virtualearth extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       'layer_type' => array(
+         '#type' => 'hidden',
+diff --git a/plugins/layer_types/openlayers_layer_type_wms.inc b/plugins/layer_types/openlayers_layer_type_wms.inc
+index 0427348..fdc3c61 100644
+--- a/plugins/layer_types/openlayers_layer_type_wms.inc
++++ b/plugins/layer_types/openlayers_layer_type_wms.inc
+@@ -53,7 +53,7 @@ class openlayers_layer_type_wms extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       'base_url' => array(
+         '#type' => 'textfield',
+diff --git a/plugins/layer_types/openlayers_layer_type_xyz.inc b/plugins/layer_types/openlayers_layer_type_xyz.inc
+index eee3e77..ba237df 100644
+--- a/plugins/layer_types/openlayers_layer_type_xyz.inc
++++ b/plugins/layer_types/openlayers_layer_type_xyz.inc
+@@ -49,7 +49,7 @@ class openlayers_layer_type_xyz extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     return array(
+       'base_url' => array(
+         '#type' => 'textfield',
+diff --git a/plugins/layer_types/openlayers_layer_type_yahoo.inc b/plugins/layer_types/openlayers_layer_type_yahoo.inc
+index 0064cd0..f1dc33c 100644
+--- a/plugins/layer_types/openlayers_layer_type_yahoo.inc
++++ b/plugins/layer_types/openlayers_layer_type_yahoo.inc
+@@ -44,7 +44,7 @@ class openlayers_layer_type_yahoo extends openlayers_layer_type {
+   /**
+    * Options form which generates layers
+    */
+-  function options_form() {
++  function options_form($defaults = array()) {
+     $warning = (!variable_get('openlayers_layers_yahoo_api', FALSE)) ?
+       array('#value' => t('WARNING: Your Yahoo API key is not set.
+         Map including Yahoo layers will break until it is set correctly.')

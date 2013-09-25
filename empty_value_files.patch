@@ -1,0 +1,14 @@
+diff --git a/mappers/file.inc b/mappers/file.inc
+index 7690f6e..51aca47 100644
+--- a/mappers/file.inc
++++ b/mappers/file.inc
+@@ -79,6 +79,9 @@ function file_feeds_set_target($source, $entity, $target, $value) {
+   $i = 0;
+   $field = isset($entity->$target) ? $entity->$target : array();
+   foreach ($value as $v) {
++    if(empty($v)){
++      continue;
++    }
+     if ($file = $v->getFile($destination)) {
+       $field['und'][$i] = (array)$file;
+       $field['und'][$i]['display'] = 1; // @todo: Figure out how to properly populate this field.
