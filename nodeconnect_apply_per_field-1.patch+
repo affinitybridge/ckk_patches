@@ -1,0 +1,87 @@
+:diff --git a/nodeconnect.module b/nodeconnect.module
+index f0da977..dfb269f 100644
+--- a/nodeconnect.module
++++ b/nodeconnect.module
+@@ -35,13 +35,15 @@ function nodeconnect_menu() {
+ }
+ 
+ /*
+- * implements of hook_field_attache_form()
++ * Implements hook_field_attach_form().
+  */
+ function nodeconnect_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+   foreach (_nodeconnect_get_ref_fields() as $field_name => $field) {
+     if (isset($form[$field_name])) {
+-      nodeconnect_include_form();
+-      _nodeconnect_field_attach_form($entity_type, $entity, $form, $form_state, $langcode, $field_name, $field);
++      if ($field['settings']['apply_nodeconnect'] || user_access('access nodeconnect everywhere')) {
++        nodeconnect_include_form();
++        _nodeconnect_field_attach_form($entity_type, $entity, $form, $form_state, $langcode, $field_name, $field);
++      }
+     }
+   }
+ }
+@@ -55,6 +57,7 @@ function nodeconnect_field_attach_form($entity_type, $entity, &$form, &$form_sta
+ function nodeconnect_include_form() {
+   module_load_include("inc", "nodeconnect", "nodeconnect.form");
+ }
++
+ /*
+  * implements of hook_form_node_form_alter()
+  *
+@@ -107,3 +110,55 @@ function _nodeconnect_get_ref_fields() {
+   return $ref_fields;
+ }
+ 
++/**
++ * Implements hook_permission().
++ */
++function nodeconnect_permission() {
++  return array(
++    'access nodeconnect everywhere' => array(
++      'title' => t('Access Node Connect everywhere'),
++      'description' => t('Access Node Connect fields even on Node References with the setting turned off.'),
++    ),
++  );
++}
++
++/**
++ * Implements hook_form_FORMID_alter().
++ */
++function nodeconnect_form_field_ui_field_edit_form_alter(&$form, $form_state) {
++  $field = $form['#field'];
++  if ('node_reference' == $field['type']) {
++    $form['field'] += _nodeconnect_field_settings_form($field);
++  }
++}
++
++/**
++ * Implements hook_field_info_alter().
++ */
++function nodeconnect_field_info_alter(&$info) {
++  if (isset($info['node_reference']['settings'])) {
++    $info['node_reference']['settings'] += array(
++      'apply_nodeconnect' => 0,
++    );
++  }
++}
++
++/**
++ * Helper module generating markup for field settings form.
++ */
++function _nodeconnect_field_settings_form($field) {
++  $settings = $field['settings'];
++  $form['nodeconnect'] = array(
++    '#type' => 'fieldset',
++    '#title' => t('Node Connect'),
++    '#collapsed' => TRUE,
++    '#collapsible' => TRUE,
++    '#parents' => array('field', 'settings'),
++  );
++  $form['nodeconnect']['apply_nodeconnect'] = array(
++    '#type' => 'checkbox',
++    '#title' => t('Apply Nodeconnect on this field'),
++    '#default_value' => $settings['apply_nodeconnect'],
++  );
++  return $form;
++}

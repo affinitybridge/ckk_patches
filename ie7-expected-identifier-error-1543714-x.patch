@@ -1,0 +1,12 @@
+diff --git a/nodeconnect.js b/nodeconnect.js
+index 8ddc253..87e4dfc 100644
+--- a/nodeconnect.js
++++ b/nodeconnect.js
+@@ -41,6 +41,6 @@
+             .trigger('change');
+         }
+       });      
+-    },
++    }
+   };
+ })(jQuery);
