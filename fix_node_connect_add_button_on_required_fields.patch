@@ -1,0 +1,13 @@
+diff --git a/nodeconnect.form.inc b/nodeconnect.form.inc
+index 42063f8..acc4b19 100644
+--- a/nodeconnect.form.inc
++++ b/nodeconnect.form.inc
+@@ -43,7 +43,7 @@ function _nodeconnect_field_attach_form($entity_type, $entity, &$form, &$form_st
+ function _nodeconnect_form_element_new(&$widget_element, $language, $field_name, $field_title, $key, $extra = '') {
+   $widget_element["add_nodeconnect__{$field_name}_$key"] = array(
+     '#type' => 'submit',
+-    '#limit_validation_errors' => array(array($field_name)),
++    '#limit_validation_errors' => array(),
+     '#value' => t('Add New @field_title content', array('@field_title' => $field_title)),
+     '#name' => "add_nodeconnect__{$field_name}_$key",
+     '#prefix' => "<div class = 'nodeconnect-add $extra'>",
