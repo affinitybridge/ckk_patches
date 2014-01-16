@@ -1,0 +1,29 @@
+diff --git a/nodeconnect.module b/nodeconnect.module
+index dfb269f..095d2ba 100644
+--- a/nodeconnect.module
++++ b/nodeconnect.module
+@@ -77,14 +77,16 @@ function nodeconnect_form_node_form_alter(&$form, &$form_state, $form_id) {
+        (isset($_REQUEST['build_cache_id']) && ($cid = $_REQUEST['build_cache_id']) ) ||
+        ((arg(1) == 'add') && ($cid = arg(3)) && $child = TRUE)
+       ) {
+-    $cache = cache_get($cid);
+-    nodeconnect_include_form();
+-    if ($child) {
+-      $form_state['#nodeconnect_child_form'] = $cache;
+-    }
+-    if (isset($_REQUEST['return'])) {
+-      unset($_REQUEST['build_cache_id']);
+-      nodeconnect_return_node_form_alter($form, $form_state, $form_id, $cid, $cache);
++    if ('nodeconnect' == substr($cid, 0, 11)) {
++      $cache = cache_get($cid);
++      nodeconnect_include_form();
++      if ($child) {
++        $form_state['#nodeconnect_child_form'] = $cache;
++      }
++      if (isset($_REQUEST['return'])) {
++        unset($_REQUEST['build_cache_id']);
++        nodeconnect_return_node_form_alter($form, $form_state, $form_id, $cid, $cache);
++      }
+     }
+   }
+   // If this for is a child form lets add alter for that purpose
