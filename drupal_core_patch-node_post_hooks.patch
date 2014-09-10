@@ -1,0 +1,17 @@
+diff --git a/modules/node/node.module b/modules/node/node.module
+index acca83e..59f98cd 100644
+--- a/modules/node/node.module
++++ b/modules/node/node.module
+@@ -1191,6 +1191,12 @@ function node_save($node) {
+     // Ignore slave server temporarily to give time for the
+     // saved node to be propagated to the slave.
+     db_ignore_slave();
++
++    // Core hack, this is a custom node hook, either:
++    // hook_node_post_update($node)
++    // hook_node_post_insert($node)
++    // These hooks run after the node insert/update is safely in the db.
++    module_invoke_all('node_post_' . $op, $node);
+   }
+   catch (Exception $e) {
+     $transaction->rollback();
