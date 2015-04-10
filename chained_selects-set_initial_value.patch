@@ -1,0 +1,20 @@
+diff --git a/js/chained_selects.js b/js/chained_selects.js
+index d06f4c0..333098e 100644
+--- a/js/chained_selects.js
++++ b/js/chained_selects.js
+@@ -7,7 +7,15 @@ Drupal.behaviors.chainedSelects = {
+   attach: function (context) {
+     var chainedSelects = Drupal.settings.chainedSelects;
+     for (var key in chainedSelects) {
++      // Get stored value
++      var initialValue = $('#' + chainedSelects[key]['child'] + ':input').val();
+       $('#' + chainedSelects[key]['child'] + ':input').chained('#' + chainedSelects[key]['parent'] + ':input');
++      // If the stored value is one of the current options, set it
++      $.map($('#' + chainedSelects[key]['child'] + ':input option'), function(option) {
++        if (option.value == initialValue) {
++          $('#' + chainedSelects[key]['child'] + ':input').val(initialValue);
++        }
++      });
+     }
+   }
+ };
