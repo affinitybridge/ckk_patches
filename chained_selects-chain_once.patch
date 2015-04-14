@@ -1,15 +1,14 @@
 diff --git a/js/chained_selects.js b/js/chained_selects.js
-index d06f4c0..5a11482 100644
+index d06f4c0..407e305 100644
 --- a/js/chained_selects.js
 +++ b/js/chained_selects.js
-@@ -7,7 +7,10 @@ Drupal.behaviors.chainedSelects = {
+@@ -7,7 +7,9 @@ Drupal.behaviors.chainedSelects = {
    attach: function (context) {
      var chainedSelects = Drupal.settings.chainedSelects;
      for (var key in chainedSelects) {
 -      $('#' + chainedSelects[key]['child'] + ':input').chained('#' + chainedSelects[key]['parent'] + ':input');
 +      $('#' + chainedSelects[key]['child'] + ':input').once('chainedselect', function() {
 +        $('#' + chainedSelects[key]['child'] + ':input').chained('#' + chainedSelects[key]['parent'] + ':input');
-+        console.log('once for ' + chainedSelects[key]['child']);
 +      });
      }
    }
