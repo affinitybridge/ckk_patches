@@ -1,0 +1,36 @@
+diff --git a/includes/features.field.inc b/includes/features.field.inc
+index 1936826..1fe31f2 100755
+--- a/includes/features.field.inc
++++ b/includes/features.field.inc
+@@ -165,7 +165,7 @@ function field_features_rebuild($module) {
+     // have to rebuild the cache all the time.
+     $existing_fields = field_info_fields();
+     $existing_instances = field_info_instances();
+-
++    $exclude_new_fields = module_invoke_all('features_exclude_new_fields');
+     foreach ($fields as $field) {
+       // Create or update field.
+       $field_config = $field['field_config'];
+@@ -176,7 +176,9 @@ function field_features_rebuild($module) {
+         }
+       }
+       else {
+-        field_create_field($field_config);
++        if (!in_array($field_config['field_name'], $exclude_new_fields)) {
++          field_create_field($field_config);
++        }
+         $existing_fields[$field_config['field_name']] = $field_config;
+       }
+ 
+@@ -189,7 +191,10 @@ function field_features_rebuild($module) {
+         }
+       }
+       else {
+-        field_create_instance($field_instance);
++        if (!in_array($field_config['field_name'], $exclude_new_fields)) {
++//        if ('og_user_node' != $field_config['field_name']) {
++          field_create_instance($field_instance);
++        }
+         $existing_instances[$field_instance['entity_type']][$field_instance['bundle']][$field_instance['field_name']] = $field_instance;
+       }
+     }
