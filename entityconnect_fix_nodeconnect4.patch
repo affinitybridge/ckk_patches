@@ -1,0 +1,29 @@
+diff --git a/entityconnect.module b/entityconnect.module
+index 2213eae..09ea190 100644
+--- a/entityconnect.module
++++ b/entityconnect.module
+@@ -176,14 +176,16 @@ function entityconnect_form_alter(&$form, &$form_state, $form_id) {
+           || ((arg(2) == 'taxonomy') && (arg(4) == 'add') && ($cid = arg(5)) && $child = TRUE)
+           || ((arg(2) == 'taxonomy') && (arg(3) == 'add') && ($cid = arg(4)) && $child = TRUE)
+           || ((arg(2) == 'entity-type') && (arg(5) == 'add') && ($cid = arg(6)) && $child = TRUE)) {
+-    $cache = entityconnect_cache_get($cid);
+-    entityconnect_include_form();
+-    if ($child) {
+-      $form_state['#entityconnect_child_form'] = $cache;
+-    }
+-    if (isset($_REQUEST['return']) && ($cache->data['form']['#form_id'] == $form_id)) {
+-      unset($_REQUEST['build_cache_id']);
+-      entityconnect_return_form_alter($form, $form_state, $form_id, $cid, $cache);
++    if ('entityconnect' == substr($cid, 0, 13)) {
++      $cache = entityconnect_cache_get($cid);
++      entityconnect_include_form();
++      if ($child) {
++        $form_state['#entityconnect_child_form'] = $cache;
++      }
++      if (isset($_REQUEST['return']) && ($cache->data['form']['#form_id'] == $form_id)) {
++        unset($_REQUEST['build_cache_id']);
++        entityconnect_return_form_alter($form, $form_state, $form_id, $cid, $cache);
++      }
+     }
+   }
+ 
