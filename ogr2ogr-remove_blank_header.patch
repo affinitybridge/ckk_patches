@@ -1,0 +1,24 @@
+diff --git a/ogr2ogr.class.inc b/ogr2ogr.class.inc
+index 4833c88..4ec1762 100644
+--- a/ogr2ogr.class.inc
++++ b/ogr2ogr.class.inc
+@@ -22,7 +22,7 @@ class Ogr2ogr {
+       if ($this->uri) {
+         $result = array();
+ 
+-        $command = $this->ogr2ogr .' -f CSV /vsistdout/ "'. $this->uri .'"';
++        $command = $this->ogr2ogr .' -f CSV /vsistdout/ "'. $this->uri .'" -dim 2';
+         foreach ($args as $flag => $value) {
+           $command .= ' '. $flag .' '. $value;
+         }
+@@ -38,6 +38,10 @@ class Ogr2ogr {
+             // Hold onto the header so we can map to fields.
+             if (empty($header)) {
+               $header = $data;
++              if ('' == end($header)) {
++                array_pop($header);
++              }
++              reset($header);
+             }
+             else {
+               $result[] = array_combine($header, $data);
