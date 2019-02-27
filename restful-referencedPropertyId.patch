@@ -1,0 +1,20 @@
+diff --git a/src/Plugin/resource/DataProvider/DataProviderEntity.php b/src/Plugin/resource/DataProvider/DataProviderEntity.php
+index 8d61bd9..914b6d2 100644
+--- a/src/Plugin/resource/DataProvider/DataProviderEntity.php
++++ b/src/Plugin/resource/DataProvider/DataProviderEntity.php
+@@ -1185,8 +1185,13 @@ class DataProviderEntity extends DataProvider implements DataProviderEntityInter
+ 
+     // Check if the referencedIdProperty is a field or a property.
+     $id_property = $field_definition['referencedIdProperty'];
+-    if (field_info_field($id_property)) {
+-      $query->fieldCondition($id_property, $resource_field->getColumn(), $value);
++    if ($referenced_id_field_info = field_info_field($id_property)) {
++      if ($referenced_id_field_info['type'] == 'text') {
++        $query->fieldCondition($id_property, 'value', $value);
++      }
++      else {
++        $query->fieldCondition($id_property, $resource_field->getColumn(), $value);
++      }
+     }
+     else {
+       $query->propertyCondition($id_property, $value);
